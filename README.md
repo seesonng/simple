@@ -1,5 +1,7 @@
 # **Simple Base** 
-
+<p align="center">
+  <img title="HanakoBotz" src="https://telegra.ph/file/ac431afd5e25e9f6c0ccc-06a63da29c271d2b22.jpg">
+</p>
 
 ## kelebihan
 ```javascript
@@ -25,7 +27,7 @@ from wa.me/6285822146627
 
 ```bash
 $ git clone https://github.com/Nazir99inf/simple-base
-$ cd simple
+$ cd simple-base
 $ npm install
 $ npm start
 ```
