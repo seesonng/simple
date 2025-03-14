@@ -1,8 +1,4 @@
 # **Simple Base** 
-<p align="center">
-  <img title="HanakoBotz" src="https://telegra.ph/file/ac431afd5e25e9f6c0ccc-06a63da29c271d2b22.jpg">
-</p>
-
 ## kelebihan
 ```javascript
 easy codding
