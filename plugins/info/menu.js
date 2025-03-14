@@ -224,7 +224,7 @@ If you find a bug in this bot, please contact the bot owner.
  –  *I N F O - B O T*
 
 ┌  ◦  Bahasa Pemrograman : Javascript
-│  ◦  Conecting To : akira-baileys@latest
+│  ◦  Conecting To : baileys@latest
 │  ◦  Moderator : nazir
 │  ◦  Wa-web Version : ${conn.ws.config.version}
 └  ◦  Browsers : ${conn.ws.config.browser[0]}
