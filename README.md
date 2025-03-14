@@ -4,7 +4,8 @@
 ## kelebihan
 ```javascript
 easy codding
-all scrape
+welcome keren
+all scraper
 free feature downloader && tools
 antibot feature
 support button
