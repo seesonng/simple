@@ -83,6 +83,9 @@ END:VCARD`,
 global.textsaluran = "Powered By Nazir🐉";
 global.saluran = "120363391202311948@newsletter";
 
+global.capitalize = (str) => {
+return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 let fs = require("fs");
 let file = require.resolve(__filename);
