@@ -77,11 +77,11 @@ let handler = async (m, {
     if (isUrl(text)) {
         let data = await Apk4Free.download(text)
         let buffer = await fetchBuffer(data.url);
-        await conn.sendFile(m.chat, buffer, data.title + ".apk", `${Object.entries(data).map(([a, b]) => `   ◦ ${a} : ${b}`).join("\n")}`, m)
+        await conn.sendFile(m.chat, buffer, "Happymod.apk", `${Object.entries(data).map(([a, b]) => `   ◦ ${a} : ${b}`).join("\n")}`, m)
     } else {
         const search = await Apk4Free.search(text);
         console.log(search)
-        await m.reply("*[ APK SEARCH ]*\nDownload: *Example: .apk [link dibawah]*\n" + search.map(
+        await m.reply("*[ APK SEARCH ]*\nDownload: *Example: .happymod [link dibawah]*\n" + search.map(
             (a, index) => `\n=========================\n*${index + 1}.* ${a.title.toUpperCase()}\n*• link:* ${a.link}\n*• Version:* ${a.version}\n*• Image:* ${a.image}\n=========================\n`));
     }
 };
