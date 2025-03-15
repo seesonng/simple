@@ -9,10 +9,7 @@ antibot feature
 support button
 ai groq
 hd image && video
-```
-```javascript
-minus encrypt jika ingin no enc buy 10k
-from wa.me/6285822146627
+No encrypt
 ```
 
 ## ⚙️ Settings Bot Check In ***( config.js )***
