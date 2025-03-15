@@ -96,9 +96,7 @@ Jika berminat hubungi: @${global.owner[0]} untuk order`, m);
         await conn.delay(1000);
         await conn.updateBlockStatus(m.chat, "block");
       }
-     
-        
-     if (global.sendiri) { if (m.fromMe || m.sender === conn.decodeJid(conn.user.jid)) return }
+    
       if (isROwner) {
         db.data.users[m.sender].premium = true;
         db.data.users[m.sender].premiumDate = "PERMANENT";
@@ -132,9 +130,7 @@ Jika berminat hubungi: @${global.owner[0]} untuk order`, m);
         opts["self"]
       )
         return;
-      if (global.gconly && m.chat.endsWith("@s.whatsapp.net")) return
-     if (global.formMe && m.fromMe || m.sender === conn.decodeJid(conn.user.jid)) return
-     
+      
       if (opts["swonly"] && m.chat !== "status@broadcast") return;
 
       if (typeof m.text !== "string") m.text = "";
