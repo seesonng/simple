@@ -1,10 +1,6 @@
- const cheerio = require("cheerio");
-const {
-    fetch
-} = require("undici");
-const {
-    lookup
-} = require("mime-types");
+const { fetch } = require("undici");
+const cheerio = require("cheerio");
+const { lookup } = require("mime-types");
 
 module.exports = {
     help: ["mediafire", "mf", "mfdl", "mediafiredl"],
@@ -22,50 +18,69 @@ module.exports = {
         chatUpdate
     }) => {
         if (!text) throw `*Example:* ${usedPrefix + command} [url]`
-        let data = await mediafire(text);
-        let buffer = await fetch(data.download).then(async (a) =>
-            Buffer.from(await a.arrayBuffer()), );
-        let mfsize = await Func.getSize(data.download);
+        conn.sendMessage(m.chat, {
+            react: {
+                text: '⏳',
+                key: m.key
+            }
+        });
+        const data = await MediaFire(text);
         let cap = "*– 乂 MediaFire - Downloader*\n";
         cap += `*📑Filename :* ${data.filename}\n`;
         cap += `*🌿Tipe File :* ${data.mimetype}\n`;
-        cap += `*🍟Size :* ${mfsize}`;
-
-        await conn.sendMessage(m.chat, {
-            document: buffer,
-            mimetype: data.mimetype,
-            fileName: data.filename,
-            caption: cap,
-        }, {
-            quoted: m
-        });
-
+        cap += `*🍟Size :* ${data.size}`;
+        
+        await conn.sendMessage(
+            m.chat,
+            {
+              document: { url: data.link },
+              mimetype: data.mimetype,
+              fileName: data.filename,
+              caption: cap
+            },
+            { quoted: m }
+          );
     }
 }
-async function mediafire(url) {
-    return new Promise(async (resolve, reject) => {
-        const response = await fetch(url);
-        const html = await response.text();
-        const $ = cheerio.load(html);
 
-        const type = $(".dl-btn-cont").find(".icon").attr("class").split("archive")[1].trim();
-        const filename = $(".dl-btn-label").attr("title");
-        const size = $('.download_link .input').text().trim().match(/\((.*?)\)/)[1];
-        const ext = filename.split(".").pop();
-        const mimetype =
-            lookup(ext.toLowerCase()) || "application/" + ext.toLowerCase();
-        const download = $(".input").attr("href");
-        resolve({
-            filename,
-            type,
-            size,
-            ext,
-            mimetype,
-            download,
-        });
-    }).catch((e) =>
-        reject({
-            msg: "Gagal mengambil data dari link tersebut",
-        }),
-    );
-}
+async function MediaFire(url, retries = 5, delay = 2000) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            const allOriginsUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+            const response = await fetch(allOriginsUrl, {
+                headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.178 Safari/537.36"
+                }
+            });
+
+            if (!response.ok) throw new Error(`Fetch failed: ${response.statusText}`);
+
+            const data = await response.text();
+            const $ = cheerio.load(data);
+
+            const filename = $(".dl-btn-label").attr("title");
+            const ext = filename.split(".").pop();
+            const mimetype = lookup(ext.toLowerCase()) || "application/" + ext.toLowerCase();
+            const size = $(".input.popsok").text().trim().match(/\(([^)]+)\)/)[1];
+            const downloadUrl = ($("#downloadButton").attr("href") || "").trim();
+            const alternativeUrl = ($("#download_link > a.retry").attr("href") || "").trim();
+
+            return {
+                filename,
+                size,
+                mimetype,
+                link: downloadUrl || alternativeUrl,
+                alternativeUrl: alternativeUrl,
+            };
+        } catch (error) {
+            console.error(`Attempt ${attempt} failed: ${error.message}`);
+
+            if (attempt < retries) {
+                console.log(`Retrying in ${delay / 1000} seconds...`);
+                await new Promise(res => setTimeout(res, delay));
+            } else {
+                throw new Error("Failed to fetch data after multiple attempts");
+            }
+        }
+    }
+ }
