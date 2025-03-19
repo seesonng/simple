@@ -7,7 +7,7 @@
 const moment = require("moment-timezone");
 const Groq = require('groq-sdk');
 const client = new Groq({
-    apiKey: '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'
+    apiKey: ''//your apikey
 });
 
 let handler = async (m, {
