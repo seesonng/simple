@@ -1,3 +1,9 @@
+//Simple Base Botz
+// • Credits : wa.me/6285822146627 [ Nazir ]
+// • Feature : _event/eval.js
+// Sumber: https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP
+
+
 const util = require("util");
 const {
     exec
@@ -8,71 +14,51 @@ module.exports = {
         conn,
         isOwner
     }) => {
-        if (m.text.startsWith('=>')) {
+        if (m.text.startsWith("=>")) {
             if (!isOwner) return;
-            let {
-                key
-            } = await conn.sendMessage(m.chat, {
-                text: "evaling..."
-            }, {
-                quoted: m
-            });
+            m.reply(wait);
             try {
-                const result = await eval(`(async () => { return ${m.text.slice(3)} })()`);
-                await conn.sendMessage(m.chat, {
-                    text: util.format(result),
-                    edit: key
-                });
+                const result = await eval(
+                    `(async () => { return ${m.text.slice(3)} })()`,
+                );
+                m.reply(util.format(result));
             } catch (e) {
-                await conn.sendMessage(m.chat, {
-                    text: util.format(e),
-                    edit: key
-                });
+                m.reply(util.format(e))
             }
-        }
-
-        if (m.text.startsWith('>')) {
+        } else if (m.text.startsWith(">")) {
             if (!isOwner) return;
-            let {
-                key
-            } = await conn.sendMessage(m.chat, {
-                text: "evaling..."
-            }, {
-                quoted: m
-            });
+            m.reply(wait);
             try {
-                const result = await eval(m.text.slice(2));
-                await conn.sendMessage(m.chat, {
-                    text: util.inspect(result),
-                    edit: key
-                });
+                const result = await eval(`(async() => { 
+${m.text.slice(2)}
+})()`);
+                m.reply(util.format(result));
             } catch (e) {
-                await conn.sendMessage(m.chat, {
-                    text: util.format(e),
-                    edit: key
-                });
+                m.reply(util.format(e))
             }
-        }
-
-        if (m.text.startsWith('$')) {
+        } else if (m.text.startsWith("$")) {
             if (!isOwner) return;
             let {
                 key
-            } = await conn.sendMessage(m.chat, {
-                text: "executed..."
-            }, {
-                quoted: m
-            });
+            } = await conn.sendMessage(
+                m.chat, {
+                    text: "executed...",
+                }, {
+                    quoted: m,
+                },
+            );
             exec(m.text.slice(2), async (err, stdout) => {
-                if (err) return await conn.sendMessage(m.chat, {
-                    text: err,
-                    edit: key
-                });
-                if (stdout) return await conn.sendMessage(m.chat, {
-                    text: stdout,
-                    edit: key
-                });
+                if (err)
+                    return await conn.sendMessage(m.chat, {
+                        text: util.format(err),
+                        edit: key,
+                    });
+                if (stdout)
+                    return await conn.sendMessage(m.chat, {
+                        text: stdout,
+                        edit: key,
+                    });
             });
-        }
+        } else return
     },
 };
