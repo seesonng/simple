@@ -7,7 +7,7 @@
 const moment = require("moment-timezone");
 const Groq = require('groq-sdk');
 const client = new Groq({
-    apiKey: ''//your apikey
+    apiKey: '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'
 });
 
 let handler = async (m, {
@@ -61,4 +61,4 @@ async function AiGpt(prompt = prompt, assistant = null) {
     });
     let hasil = chatCompletion.choices[0].message.content
     return hasil
-}
+                                                                                                        }
