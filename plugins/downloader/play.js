@@ -1,121 +1,97 @@
-let handler = async (m, {
+//Simple Base Botz
+// • Credits : wa.me/6285822146627 [ Nazir ]
+// • Feature : downloader/yt-play.js
+// Sumber: https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP
+
+
+const {
+    generateWAMessage,
+    proto,
+    jidNormalizedUser,
+    prepareWAMessageMedia,
+    generateForwardMessageContent,
+    generateWAMessageFromContent,
+} = require("baileys");
+const yts = require('yt-search');
+const fs = require('fs');
+
+const handler = async (m, {
     conn,
-    usedPrefix,
+    command,
     text,
-    args,
-    command
+    usedPrefix
 }) => {
-    if (!text) throw "*Example :* .pin [input query]";
+    if (!text) throw `*• Example :* ${usedPrefix + command} *[query]*`;
     conn.sendMessage(m.chat, {
-        react: {
-            text: '⏳',
-            key: m.key
+            react: {
+                text: '⏳',
+                key: m.key
+            }
+        });
+    let search = await yts(text);
+    if (!search) throw 'Video Not Found, Try Another Title';
+    let vid = search.videos[0];
+    let {
+        title,
+        thumbnail,
+        timestamp,
+        views,
+        ago,
+        url
+    } = vid;
+
+    let teks = "*" + title + "*" + "\n\n*Durasi:* " + timestamp + "\n*Views:* " + views + "\n*Upload:* " + ago + "\n*Link:* " + url;
+    let msg = generateWAMessageFromContent(m.chat, {
+        'viewOnceMessage': {
+            'message': {
+                'messageContextInfo': {
+                    'deviceListMetadata': {},
+                    'deviceListMetadataVersion': 0x2
+                },
+                'interactiveMessage': proto.Message.InteractiveMessage.create({
+                    'body': proto.Message.InteractiveMessage.Body.create({
+                        'text': teks
+                    }),
+                    'footer': proto.Message.InteractiveMessage.Footer.create({
+                        'text': wm
+                    }),
+                    'header': proto.Message.InteractiveMessage.Header.create({
+                        'hasMediaAttachment': false,
+                        ...(await prepareWAMessageMedia({
+                            'image': {
+                                'url': thumbnail
+                            }
+                        }, {
+                            'upload': conn.waUploadToServer
+                        }))
+                    }),
+                    'nativeFlowMessage': proto.Message.InteractiveMessage.NativeFlowMessage.create({
+                        'buttons': [{
+                            'name': "quick_reply",
+                            'buttonParamsJson': "{\"display_text\":\"Audio🎧\",\"id\":\".yta " + url + "\"}"
+                        }, {
+                            'name': "quick_reply",
+                            'buttonParamsJson': "{\"display_text\":\"Video🎥\",\"id\":\".ytv " + url + "\"}"
+                        }, {
+                            'name': "quick_reply",
+                            'buttonParamsJson': "{\"display_text\":\"Lirik🎶\",\"id\":\".lirik " + text + "\"}"
+                        }]
+                    })
+                })
+            }
         }
+    }, {
+        'quoted': m
     });
-    try {
-        const pinterest = {
-    api: {
-        base: "https://www.pinterest.com",
-        endpoints: {
-            search: "/resource/BaseSearchResource/get/",
-            pin: "/resource/PinResource/get/",
-            user: "/resource/UserResource/get/"
-        }
-    },
+    return await conn.relayMessage(m.chat, msg.message, {});
+}
 
-    headers: {
-        'accept': 'application/json, text/javascript, */*, q=0.01',
-        'referer': 'https://www.pinterest.com/',
-        'user-agent': 'Postify/1.0.0',
-        'x-app-version': 'a9522f',
-        'x-pinterest-appstate': 'active',
-        'x-pinterest-pws-handler': 'www/[username]/[slug].js',
-        'x-pinterest-source-url': '/search/pins/?rs=typed&q=kucing%20anggora/',
-        'x-requested-with': 'XMLHttpRequest'
-    },
-    getCookies: async () => {
-        try {
-            const response = await axios.get(pinterest.api.base);
-            const setHeaders = response.headers['set-cookie'];
-            if (setHeaders) {
-                const cookies = setHeaders.map(cookieString => {
-                    const cp = cookieString.split(';');
-                    const cv = cp[0].trim();
-                    return cv;
-                });
-                return cookies.join('; ');
-            }
-            return null;
-        } catch (error) {
-            console.error(error);
-            return null;
-        }
-    },
-    search: async (query, limit = 15) => {
-            const cookies = await pinterest.getCookies();
-            const params = {
-                source_url: `/search/pins/?q=${query}`,
-                data: JSON.stringify({
-                    options: {
-                        isPrefetch: false,
-                        query: query,
-                        scope: "pins",
-                        bookmarks: [""],
-                        no_fetch_context_on_resource: false,
-                        page_size: limit
-                    },
-                    context: {}
-                }),
-                _: Date.now()
-            };
-            const { data } = await axios.get(`${pinterest.api.base}${pinterest.api.endpoints.search}`, {
-                headers: { ...pinterest.headers, 'cookie': cookies },
-                params: params
-            });
-            const container = [];
-            const results = data.resource_response.data.results.filter((v) => v.images?.orig);     
-            results.forEach((result) => {
-                container.push({
-                    id: result.id,
-                    title: result.title || "",
-                    description: result.description,
-                    pin_url: `https://pinterest.com/pin/${result.id}`,
-                    gambar: result.images.orig,
-                });
-            });
+handler.help = ["play", "lagu", "song"].map((a) => a + ` *[query]*`);
+handler.tags = ["downloader"];
+handler.command = ["song", "lagu", "play"];
 
-            return {
-                status: true,
-                code: 200,
-                result: {
-                    query: query,
-                    total: container.length,
-                    pins: container
-                }
-            };
-        }
-    }
-let data = await pinterest.search(text)
-let results = data.result.pins;
-let array = []
-            for (let i = 1; i < 12; i++) {
-                const randomResult =
-                    results[i];
-                array.push([`*乂 P I N T R E S T - S L I D E*
-  ◦  *Title* : ${randomResult.title}
-  ◦  *Url* : ${randomResult.pin_url}  
-  ◦  *Result Ke* : ${array.length}/10`, wm, randomResult.gambar.url, [["Cari Serupa", `.pin ${randomResult.gambar.url}`]], [], [["Download Image", randomResult.gambar.url]] ])
-            }
-            conn.sendCarousel(m.chat, array, m, {
-                body: `*Search From :* ${text}\n*Total Pothos :* 10\n*Total Result:* 15` });
-    } catch (error) {
-        console.log(error);
-        m.reply("Terjadi kesalahan saat menjalankan perintah.");
-    }
-};
-
-handler.help = ["pinterest", "pin", "pin_slide", "pinslide"].map((a) => a + " *[query]*");
-handler.tags = ["tools", "internet"];
-handler.command = ["pinterest", "pin", "pin_slide", "pinslide"];
+handler.exp = 0;
+handler.register = false;
+handler.limit = true;
 
 module.exports = handler;
