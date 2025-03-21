@@ -1,3 +1,8 @@
+//Simple Base Botz
+// • Credits : wa.me/6285822146627 [ Nazir ]
+// • Feature : Tiktok
+// Sumber: https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP
+
 let handler = async (m, {
     conn,
     text,
@@ -12,43 +17,21 @@ let handler = async (m, {
         } = fetch;
         let lastMessage;
         if (data.images) {
-            let cap = `┌─⭓「 *Tiktok Downloader* 」\n│ *• ID :* *[ ${data.id} ]*\n│ *• Views :* ${Func.formatNumber(data.play_count)}\n│ *• Likes :* ${Func.formatNumber(data.digg_count)}\n│ *• Comment :* ${Func.formatNumber(data.comment_count)}\n│ *• Author :* ${data.author.nickname}\n└───────────────⭓\n*• Title :* ${data.title}`
-            m.reply(cap);
+            let cap = `*ID :* ${data.id}\n*Views :* ${Func.formatNumber(data.play_count)}\n*Likes :* ${Func.formatNumber(data.digg_count)}\n*Comment :* ${Func.formatNumber(data.comment_count)}\n*Author :* ${data.author.nickname}\n\n*Title :* ${data.title}`
+            let array = []
             for (let i = 0; i < data.images.length; i++) {
-                lastMessage = await conn.sendMessage(
-                    m.chat, {
-                        image: {
-                            url: data.images[i],
-                        },
-                        caption: null,
-                    }, {
-                        quoted: m,
-                    },
-                );
-
-                if (i === data.images.length - 1) {
-                    await conn.sendMessage(
-                        m.chat, {
-                            audio: {
-                                url: data.music,
-                            },
-                            mimetype: "audio/mpeg",
-                            contextInfo: {
-                                externalAdReply: {
-                                    title: data.music_info.title,
-                                    body: '',
-                                    thumbnailUrl: data.author.avatar,
-                                    sourceUrl: `https://www.tiktok.com/@` + data.music_info.author,
-                                    mediaType: 1,
-                                    renderLargerThumbnail: false,
-                                },
-                            },
-                        }, {
-                            quoted: lastMessage,
-                        },
-                    );
-                }
+                const image = data.images[i];
+                array.push([`*乂 T I K T O K - D O W N L O A D E R*
+       
+  ◦  *Total photos* : ${data.images.length}
+  ◦  *Result Ke* : ${array.length}
+  
+  © Simple Whatsapp Bot by Nazir`, wm, image, []])
             }
+            conn.sendCarousel(m.chat, array, m, {
+                body: cap,
+                footer: "© Nazir"
+            })
         } else {
             lastMessage = await conn.sendMessage(
                 m.chat, {
@@ -93,8 +76,8 @@ let handler = async (m, {
     }
 };
 
-handler.help = ["tt", "tiktok"].map((a) => a + " *[Tiktok Url]*");
+handler.help = ["tt", "tiktok", "ttslide", "ttdl"].map((a) => a + " *[Tiktok Url]*");
 handler.tags = ["downloader"];
-handler.command = ["tt", "tiktok"];
+handler.command = ["tt", "tiktok", "ttslide", "ttdl"];
 
 module.exports = handler;
