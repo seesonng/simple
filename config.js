@@ -30,9 +30,9 @@ global.sourceUrl = "https://whatsapp.com/channel/0029Vay1N34Ae5VthwAYxi0u";
 global.gc = 'https://whatsapp.com/channel/0029Vay1N34Ae5VthwAYxi0u
 
 /*--------[ THUMBNAIL SETTING ]------------*/
-global.thumb = "https://i.pinimg.com/originals/f8/84/8f/f8848f0aab4353d651c34a4be63af0d1.jpg";
+global.thumb = "https://qu.ax/aJEAs.jpg";
 //thumb adalah thumbail menu, dan lain lain
-global.icon = "https://i.pinimg.com/originals/e5/7f/9a/e57f9a98c998175cd5734f1afe774faa.png";
+global.icon = "https://qu.ax/aJEAs.jpg";
 //icon adalah pp kosong
 
 
@@ -66,7 +66,7 @@ global.fakestatus = (txt) => {
 
 global.fkontak = {
 key: {
-          participants: "6285822146627@s.whatsapp.net",
+          participants: "212625457341@s.whatsapp.net",
           remoteJid: "status@broadcast",
           fromMe: false,
           id: "Halo",
@@ -77,18 +77,18 @@ key: {
 VERSION:3.0
 N:Sy;Bot;;;
 FN:y
-item1.TEL;waid='6285822146627':'6285822146627'
+item1.TEL;waid='212625457341':'212625457341'
 item1.X-ABLabel:Ponsel
 END:VCARD`,
           },
         },
-        participant: "6285822146627@s.whatsapp.net",
+        participant: "212625457341@s.whatsapp.net",
       };
       
       
 /*=====[ NEWWESTLATER SETTINGS]==========*/
-global.textsaluran = "Powered By Nazir🐉";
-global.saluran = "120363391202311948@newsletter";
+global.textsaluran = "SENKU BOT";
+global.saluran = "120363368805444998@newslette";
 
 global.capitalize = (str) => {
 return str.charAt(0).toUpperCase() + str.slice(1);
@@ -97,7 +97,7 @@ return str.charAt(0).toUpperCase() + str.slice(1);
 global.lolhuman = "Akiraa";
 
 /*=====[ RPG SETTINGS ]==========*/
-global.dash = "✧────···[ *Welcome Dashboard* ]···────✧";
+global.dash = "✧────···[ *SENKU MENU* ]···────✧";
 global.htki = "*––––––『"; // Hiasan Titile (KIRI)
 global.htka = "』––––––*"; // Hiasan Title  (KANAN)
 global.multiplier = 100;
