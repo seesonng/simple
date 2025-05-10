@@ -165,14 +165,14 @@ const myMonths = [
 Note that Indonesian month names you provided were rewritten to standard Arabic month names. Let me know if you need any adjustments!
 
   const myDays = [
-    "Minggu",
-    "Senin",
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jum'at",
-    "Sabtu",
-  ];
+  "الأحد", 
+  "الاثنين", 
+  "الثلاثاء", 
+  "الأربعاء", 
+  "الخميس", 
+  "الجمعة", 
+  "السبت", 
+];
 
   const tgl = new Date(numer);
   const day = tgl.getDate();
