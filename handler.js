@@ -374,7 +374,7 @@ Jika berminat hubungi: @${global.owner[0]} untuk order`, m);
             continue;
           }
           if (plugin.level > _user.level) {
-            let level = `*[ THE LEVEL IS NOT ENOUGH ]*\n> • _Kamu Perlu level *[ ${plugin.level} ]*, untuk mengakses ini, silahkan main minigame atau RPG untuk meningkatkan level anda_`;
+            let level = `*[ المستوى غير كافٍ ]*\n> • تحتاج إلى المستوى *${plugin.level}*, للوصول إلى هذا. العب الألعاب المصغرة أو RPG لزيادة مستوا`;
             conn.sendMessage(
               m.chat,
               {
