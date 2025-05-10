@@ -2,30 +2,30 @@ let { Scraper, Uploader } = require("akiraa-scrape");
 const moment = require("moment-timezone");
 
 /*--------[ OWNER SETTING ]------------*/
-global.owner = ["6285822146627"];
-global.mods = ["6285822146627"]; // Moderator
-global.prems = ["6287869975929"]; // Premium
-global.numberbot = "6287869975929";
-global.nameowner = "@Nazir";
-global.nomorown = "6285822146627";
+global.owner = ["212625457341"];
+global.mods = ["212625457341"]; // Moderator
+global.prems = ["212625457341"]; // Premium
+global.numberbot = "212625457341";
+global.nameowner = "AHMED ALIGUE";
+global.nomorown = "212625457341";
 
 
 /*--------[ BOT SETTING ]------------*/
-global.namebot = "Simple-Base";
-global.swa = "wa.me/6285822146627";
+global.namebot = "SENKU BOT";
+global.swa = "wa.me/6656756478656";
 global.version = "1.0.0";
-global.wm = "© Nazir";
+global.wm = "© SENKU BOT";
 global.isPairing = true;
 global.wait = "*( Loading )* Plase Wait...";
 global.eror = "*Error System*";
-global.done = `*Success Result*\n© Simple Whatsapp bot by nazir`;
+global.done = `*Success Result*\n© *SENKU BOT*`;
 global.maxwarn = '3' // Peringatan maksimum Warn
 global.packname = "© Nazir";
 global.author = `Time : ${moment.tz("Asia/Makassar")}`;
 
 /*--------[ MY LINK SETTING ]------------*/
-global.mail = 'youremail.example.com' 
-global.sgc = "https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP";
+global.mail = '212625457341' 
+global.sgc = "212625457341";
 global.sourceUrl = "https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP";
 global.gc = 'https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP'
 
