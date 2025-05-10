@@ -145,20 +145,24 @@ global.doc = pickRandom([
 const _uptime = process.uptime() * 1000;
 
 global.tanggal = async (numer) => {
-  const myMonths = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ];
+ Here is the rewritten array in Arabic:
+
+const myMonths = [
+  "يناير", 
+  "فبراير", 
+  "مارس", 
+  "أبريل", 
+  "مايو", 
+  "يونيو", 
+  "يوليو", 
+  "أغسطس", 
+  "سبتمبر", 
+  "أكتوبر", 
+  "نوفمبر", 
+  "ديسمبر",
+];
+
+Note that Indonesian month names you provided were rewritten to standard Arabic month names. Let me know if you need any adjustments!
 
   const myDays = [
     "Minggu",
