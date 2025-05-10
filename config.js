@@ -25,9 +25,9 @@ global.author = `Time : ${moment.tz("Asia/Makassar")}`;
 
 /*--------[ MY LINK SETTING ]------------*/
 global.mail = '212625457341' 
-global.sgc = "212625457341";
-global.sourceUrl = "https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP";
-global.gc = 'https://chat.whatsapp.com/DwiyKDLAuwjHqjPasln3WP'
+global.sgc = "https://whatsapp.com/channel/0029Vay1N34Ae5VthwAYxi0u";
+global.sourceUrl = "https://whatsapp.com/channel/0029Vay1N34Ae5VthwAYxi0u";
+global.gc = 'https://whatsapp.com/channel/0029Vay1N34Ae5VthwAYxi0u
 
 /*--------[ THUMBNAIL SETTING ]------------*/
 global.thumb = "https://i.pinimg.com/originals/f8/84/8f/f8848f0aab4353d651c34a4be63af0d1.jpg";
